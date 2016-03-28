@@ -25,7 +25,7 @@ RSpec.describe V1::PingPongScoresController, :type => :controller do
 
       it 'properly returning all emails and high scores' do
 
-        #testing database data here
+        #comparing json data to database data
         expect(json["ping_pong_scores"][0]["email"]).to include(PingPongScore.first.email)
 
         expect(json["ping_pong_scores"][1]["high_score"]).to eq(PingPongScore.second.high_score)
