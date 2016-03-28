@@ -1,0 +1,4 @@
+Ping Pong Score API
+===================
+
+Please see main folder README file for instructions
