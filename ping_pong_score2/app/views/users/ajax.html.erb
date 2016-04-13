@@ -1,0 +1,48 @@
+<div class="container ajax_body">
+  <h1>Ping Pong High Scores - Ajax Data Fetch</h1>
+  <br>
+  <br>
+
+    <!-- Loop thru all users in local database, display email/name and assign email as high score id tag after stripping all email symbols -->
+    <% for i in 1..@users.length %>
+      <p>Name: <%= @users.find(i).name %></p>
+
+      <!-- Strip out email symbols in Ruby -->
+      <% stripEmailSymbols = @users.find(i).email.tr('^A-Za-z0-9', '') %>
+      <p id="<%= stripEmailSymbols %>">High Score: </p>
+      <p>Email: <%= @users.find(i).email %></p>
+      <hr>
+    <% end %>
+
+  <script>
+        // Define API URI
+        var myAPI = "http://localhost:3001/v1/ping_pong_scores";
+
+        // Make the AJAX call, if it succeeds run the done block, if it fails run the fail block
+        myData = $.getJSON( myAPI )
+        .done(function( json ) {
+
+          // Loop thru the JSON response, assign variables to email and high score
+          for(var i = 0;i< json.ping_pong_scores.length; i++) {
+            var email = json.ping_pong_scores[i].email;
+            var highScore = json.ping_pong_scores[i].high_score;
+            //console.log(json.ping_pong_scores.length);
+
+            // Strip out all email symbols in JavaScript
+            var stripEmailSymbols = email.replace(/[^\w\s]/gi, '')
+
+            // Make sure there is actually a selector id that exists for the current email address
+            if ($('#' + stripEmailSymbols).length != 0) {
+              // Use the stripEmailSymbols variable to find the correct id tag and append each high score dynamically
+              $('#' + stripEmailSymbols).append(highScore);
+            }
+          }
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+          var err = textStatus + ", " + error;
+          console.log( "Request Failed: " + err );
+        });
+  </script>
+
+</div>
+

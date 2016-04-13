@@ -1,0 +1,107 @@
+<!-- Navigation -->
+<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+        <li class="sidebar-brand">
+            <a href="#top"  onclick = $("#menu-close").click(); >Ping Pong Scoreboard</a>
+        </li>
+        <li>
+            <a href="#top" onclick = $("#menu-close").click(); >Back To Top</a>
+        </li>
+        <li>
+            <a href="#scores" onclick = $("#menu-close").click(); >Scores</a>
+        </li>
+        <li>
+            <a href="/ajax" onclick = $("#menu-close").click(); >Ajax Data Fetch</a>
+        </li>    
+    </ul>
+</nav>
+
+<!-- Header -->
+<header id="top" class="header">
+    <div class="text-vertical-center">
+        <h1>Ping Pong Scoreboard</h1>
+        <br>
+        <a href="#scores" class="btn btn-dark btn-lg">View Scores</a>
+    </div>
+</header>
+
+<!-- Scores -->
+<section id="scores" class="scores">
+    <div class="container">
+    <h1>Ping Pong High Scores - ActiveResource Data Fetch</h1>
+    <br>
+    <br>
+    <hr>
+    <div>
+
+        <!-- Looping thru the JSON Response and cross referencing each email address so I know which high score to show with each name/email  -->
+        <% for i in 0..@jsonResponse["ping_pong_scores"].length-1 %>
+            <% sameEmail = @jsonResponse["ping_pong_scores"][i]["email"] %>
+
+            <!-- Make sure email address exists in local database -->
+            <% if @users.where(email:sameEmail)[0] != nil %>
+            
+                <p>Name: <%= @users.where(email:sameEmail)[0]["name"] %></p>
+                <p>High Score: <%= @jsonResponse["ping_pong_scores"][i]["high_score"] %></p>
+                <p>Email: <%= @users.where(email:sameEmail)[0]["email"]  %></p>
+                
+            <% end %>
+            <hr>
+            <br>
+        <% end %>
+
+    </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+
+
+<!-- Call to Action -->
+<aside class="call-to-action bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h3>Click Below to See AJAX Data Fetch</h3>
+
+                <a href="/ajax" class="btn btn-lg btn-dark" id="ajax_click">Go To Ajax Page</a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+
+<!-- Custom Theme JavaScript -->
+<script>
+// Closes the sidebar menu
+$("#menu-close").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+});
+
+// Opens the sidebar menu
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+});
+
+// Scrolls to the selected menu item on the page
+$(function() {
+    $('a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        }
+    });
+});
+</script>
