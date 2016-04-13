@@ -14,4 +14,10 @@ Application Instructions:
 * Project Tests can be ran with the 'bundle exec rspec' command.  API endpoint unit tests are written via RSpec and front-end project has an integration test written via Capybara.
 
 
+
+
 Thanks for taking the time to look at my work.
+
+John Bergandino | 2016
+jbergandino@gmail.com
+
