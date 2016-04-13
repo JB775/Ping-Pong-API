@@ -18,6 +18,5 @@ Application Instructions:
 
 Thanks for taking the time to look at my work.
 
-John Bergandino | 2016
-jbergandino@gmail.com
+John Bergandino  |  2016  |  jbergandino@gmail.com
 
