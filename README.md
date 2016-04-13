@@ -1,4 +1,5 @@
 Project #1:  Custom built Ping Pong API, this is a RESTful API built with Ruby on Rails.
+
 Project #2:  Ping Pong Scoreboard, this is a normal rails project with some basic bootstrap front-end work.  Ping Pong score data is being sourced from the API.  The main page's score data is being fetched via ActiveResource and the secondary page utilizes AJAX.
 
 
